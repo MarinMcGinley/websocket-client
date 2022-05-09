@@ -1,11 +1,13 @@
-
-import './App.css';
-import MessagingSession from './components/messagingSession';
-import * as React from 'react';
+import "./App.scss";
+import MessagingSession from "./components/messagingSession";
+import LogInPage from "./pages/logInPage";
+import * as React from "react";
 
 function App() {
   return (
-    <MessagingSession />
+    <div className="app">
+      <LogInPage />
+    </div>
   );
 }
 
