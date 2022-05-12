@@ -1,87 +1,79 @@
 import * as React from "react";
 import "./logInPage.scss";
 import Header from "../components/header";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const axios = require("axios").default;
 
 const serverUrl = process.env.REACT_APP_WEBSOCKET_URL;
 
-type State = {
-  email: string;
-  password: string;
-  errorMessage: string;
-};
+function LogInPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState("");
 
-type Props = {};
-
-class LogInPage extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      errorMessage: "",
-    };
-
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  function handleEmailChange(event: any) {
+    setEmail(event.target.value);
   }
 
-  handleEmailChange(event: any) {
-    this.setState({ email: event.target.value });
+  function handlePasswordChange(event: any) {
+    setPassword(event.target.value);
   }
 
-  handlePasswordChange(event: any) {
-    this.setState({ password: event.target.value });
-  }
-
-  handleSubmit(event: any) {
+  function handleSubmit(event: any) {
     event.preventDefault();
+    console.log("handleSubmit");
     axios
       .post(`${serverUrl}/api/authentication/signin`, {
-        email: this.state.email,
-        password: this.state.password,
+        email: email,
+        password: password,
       })
-      .then((result: AxiosResponse) => {});
+      .then((result: AxiosResponse) => {
+        // where to store the fuckan token??
+        localStorage.setItem("authToken", result.data.accessToken);
+        console.log("login success");
+        navigate("/home");
+      })
+      .catch((error: AxiosError) => {
+        console.log(error);
+      });
   }
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="login-container">
-          <form className="login-form">
-            <label className="labels">
-              <div className="label-div">email</div>
-              <input
-                className="login-input"
-                type="text"
-                name="email"
-                onChange={this.handleEmailChange}
-              />
-            </label>
-            <label className="labels">
-              <div className="label-div">password</div>
-              <input
-                className="login-input"
-                type="text"
-                name="password"
-                onChange={this.handlePasswordChange}
-              />
-            </label>
+  return (
+    <React.Fragment>
+      <Header />
+      <div className="login-container">
+        <form className="login-form">
+          <label className="labels">
+            <div className="label-div">email</div>
             <input
-              className="login-button"
-              type="submit"
-              value="sign in"
-              onClick={this.handleSubmit}
+              className="login-input"
+              type="text"
+              name="email"
+              onChange={handleEmailChange}
             />
-          </form>
-        </div>
+          </label>
+          <label className="labels">
+            <div className="label-div">password</div>
+            <input
+              className="login-input"
+              type="password"
+              name="password"
+              onChange={handlePasswordChange}
+            />
+          </label>
+          <input
+            className="login-button"
+            type="submit"
+            value="sign in"
+            onClick={handleSubmit}
+          />
+        </form>
       </div>
-    );
-  }
+    </React.Fragment>
+  );
 }
 
 export default LogInPage;

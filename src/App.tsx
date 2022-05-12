@@ -1,12 +1,14 @@
 import "./App.scss";
-import MessagingSession from "./components/messagingSession";
+import HomePage from "./pages/homePage";
 import LogInPage from "./pages/logInPage";
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 function App() {
   return (
     <div className="app">
-      <LogInPage />
+      <Link to="/">login</Link>
+      <Link to="/home">home</Link>
     </div>
   );
 }
