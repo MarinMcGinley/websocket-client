@@ -10,8 +10,8 @@ import HomePage from "./pages/homePage";
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<LogInPage />} />
-      <Route path="/home" element={<HomePage />} />
+      <Route path="/login" element={<LogInPage />} />
+      <Route path="/" element={<HomePage />} />
       <Route
         path="*"
         element={

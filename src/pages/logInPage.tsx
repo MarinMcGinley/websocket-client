@@ -3,16 +3,18 @@ import "./logInPage.scss";
 import Header from "../components/header";
 import { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const axios = require("axios").default;
 
 const serverUrl = process.env.REACT_APP_WEBSOCKET_URL;
 
-function LogInPage() {
+const LogInPage = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [errorMessage, setErrorMessage] = React.useState("");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleEmailChange(event: any) {
     setEmail(event.target.value);
@@ -34,7 +36,7 @@ function LogInPage() {
         // where to store the fuckan token??
         localStorage.setItem("authToken", result.data.accessToken);
         console.log("login success");
-        navigate("/home");
+        navigate("/");
       })
       .catch((error: AxiosError) => {
         console.log(error);
@@ -74,6 +76,6 @@ function LogInPage() {
       </div>
     </React.Fragment>
   );
-}
+};
 
 export default LogInPage;
