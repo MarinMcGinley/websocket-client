@@ -40,8 +40,13 @@ const LogInPage = () => {
       })
       .catch((error: AxiosError) => {
         console.log(error);
+        setErrorMessage("wrong email or password");
       });
   }
+  const displayedErrorMessage =
+    errorMessage != null ? (
+      <p className="error-message">{errorMessage}</p>
+    ) : null;
 
   return (
     <React.Fragment>
@@ -72,6 +77,7 @@ const LogInPage = () => {
             value="sign in"
             onClick={handleSubmit}
           />
+          {displayedErrorMessage}
         </form>
       </div>
     </React.Fragment>
