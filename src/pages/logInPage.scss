@@ -1,0 +1,98 @@
+$blabla-color: #48a9a6;
+
+.login-container {
+  margin-top: 10rem;
+  font-family: "Montserrat", "sans-serif";
+  font-weight: 600;
+
+  .login-form {
+    max-width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    color: $blabla-color;
+
+    @media (min-width: 700px) {
+      max-width: 400px;
+    }
+
+    .labels {
+      margin: 0;
+      padding: 0;
+      min-width: 100%;
+      max-width: 100%;
+      position: relative;
+
+      .label-div {
+        margin-bottom: 0.3rem;
+      }
+
+      .login-input {
+        margin: 0 0 1rem 0;
+        border: 1.5px solid $blabla-color;
+        padding: 0 0.3rem;
+        border-radius: 7px;
+        width: calc(100% - 3px - 4.8 * 2px);
+        min-height: 2rem;
+        color: $blabla-color;
+
+        &:focus {
+          border: 1.5px solid $blabla-color;
+          color: $blabla-color;
+        }
+      }
+    }
+
+    .login-button {
+      font-family: "Montserrat", "sans-serif";
+      font-weight: 600;
+      color: $blabla-color;
+      margin-top: 1rem;
+      background-color: #fff;
+      min-height: 2.3rem;
+      min-width: 100%;
+
+      padding: 0;
+      border: 1.5px solid $blabla-color;
+      border-radius: 7px;
+
+      &:hover {
+        color: #fff;
+        background-color: $blabla-color;
+        border-color: #fff;
+      }
+    }
+
+    .error-message {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #ec2a00;
+      margin: 1rem auto;
+    }
+
+    .loader {
+      margin: auto;
+      border: 12px solid #f3f3f3; /* Light grey */
+      border-top: 12px solid $blabla-color; /* Blue */
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+/* #4281A4 blue
+#48a9a6 ocean blue
+#e4dfda baige
+#d4b483 tan
+#c1666b rassberry */
