@@ -15,18 +15,21 @@ const LogInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function handleEmailChange(event: any) {
+  const handleEmailChange = (event: any) => {
     setEmail(event.target.value);
-  }
+  };
 
-  function handlePasswordChange(event: any) {
+  const handlePasswordChange = (event: any) => {
     setPassword(event.target.value);
-  }
+  };
 
-  function handleSubmit(event: any) {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log("handleSubmit");
+    setErrorMessage("");
+    setLoading(true);
     axios
       .post(`${serverUrl}/api/authentication/signin`, {
         email: email,
@@ -34,19 +37,22 @@ const LogInPage = () => {
       })
       .then((result: AxiosResponse) => {
         // where to store the fuckan token??
+        setLoading(false);
         localStorage.setItem("authToken", result.data.accessToken);
-        console.log("login success");
         navigate("/");
       })
       .catch((error: AxiosError) => {
-        console.log(error);
+        setLoading(false);
         setErrorMessage("wrong email or password");
       });
-  }
+  };
+
   const displayedErrorMessage =
     errorMessage != null ? (
       <p className="error-message">{errorMessage}</p>
     ) : null;
+
+  const loader = loading ? <div className="loader"></div> : null;
 
   return (
     <React.Fragment>
@@ -78,6 +84,7 @@ const LogInPage = () => {
             onClick={handleSubmit}
           />
           {displayedErrorMessage}
+          {loader}
         </form>
       </div>
     </React.Fragment>
