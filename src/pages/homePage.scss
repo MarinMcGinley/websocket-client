@@ -1,13 +1,16 @@
 .friends-container {
   margin: 0;
   padding: 0;
+  min-height: 100%;
   font-family: "Montserrat", "sans-serif";
   color: #2b2b2b;
 
-  .friend {
+  .friend-button {
     padding: 1rem 0 2rem 1rem;
     list-style-type: none;
     border: 1px solid #f3f3f3;
     min-width: 100%;
+    background-color: #fff;
+    text-align: left;
   }
 }
