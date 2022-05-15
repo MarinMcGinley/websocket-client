@@ -12,7 +12,6 @@ const MobileFriendHeader = (props: FriendProp) => {
 
   const goBack = (event: any) => {
     event.preventDefault();
-    console.log("goback");
     navigate("/");
   };
   return (

@@ -1,4 +1,4 @@
-.friends-container {
+.mobile-friends-container {
   margin: 0;
   padding: 0;
   min-height: 100%;
@@ -12,5 +12,25 @@
     min-width: 100%;
     background-color: #fff;
     text-align: left;
+  }
+}
+
+.full-screen-container {
+  display: flex;
+  .friends-container {
+    min-width: 300px;
+
+    .friend-button {
+      padding: 1rem 0 2rem 1rem;
+      list-style-type: none;
+      border: 1px solid #f3f3f3;
+      min-width: 100%;
+      background-color: #fff;
+      text-align: left;
+    }
+  }
+
+  .full-screen-message-container {
+    min-width: 100%;
   }
 }

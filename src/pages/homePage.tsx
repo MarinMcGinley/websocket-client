@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import MobileMessageChat from "./mobileMessageChat";
 import "./homePage.scss";
+import FullWidthMessageChat from "../components/fullWidthMessageChat";
+import FullWidthFriendHeader from "../components/fullWidthFriendHeader";
 
 const serverUrl = process.env.REACT_APP_WEBSOCKET_URL;
 
@@ -99,7 +101,7 @@ const HomePage = () => {
       lastName: "Logadóttir",
     },
   ]);
-  const [chosenFriend, setChosenFriend] = useState(null);
+  const [chosenFriend, setChosenFriend] = useState(friends[0]);
 
   useEffect(() => {
     window.addEventListener("resize", () =>
@@ -110,7 +112,6 @@ const HomePage = () => {
         setIsMobile(window.innerWidth < 800)
       );
     };
-
     // axios
     //   .get(`${serverUrl}/api/friends`, {
     //     headers: {
@@ -127,9 +128,9 @@ const HomePage = () => {
     //   });
   });
 
-  const mobileView = () => {
+  const MobileView = () => {
     return (
-      <div className="friends-container">
+      <div className="mobile-friends-container">
         {friends.map((friend: Friend) => {
           return (
             <button
@@ -145,27 +146,51 @@ const HomePage = () => {
             </button>
           );
         })}
-        ;
       </div>
     );
   };
 
-  const fullScreenView = () => {};
+  const FullScreenFriendList = () => {
+    return (
+      <div className="friends-container">
+        {friends.map((friend: Friend) => {
+          return (
+            <button
+              key={friend.id}
+              className="friend-button"
+              onClick={(e: any) => {
+                setChosenFriend(friend);
+              }}
+            >
+              {friend.firstName} {friend.lastName}
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
 
-  // return (
-  //   <React.Fragment>
-  //     <Header />
-  //     {chosenFriend == null ? (
-  //       <ul className="friends-container">{friendsToDisplay}</ul>
-  //     ) : (
-  //       <MobileMessageChat friendId={chosenFriend} />
-  //     )}
-  //   </React.Fragment>
-  // );
+  const FullScreenView = () => {
+    return (
+      <React.Fragment>
+        <div className="full-screen-container">
+          <FullScreenFriendList />
+          <div className="full-screen-message-container">
+            <FullWidthFriendHeader
+              firstName={chosenFriend.firstName}
+              lastName={chosenFriend.lastName}
+            />
+            <FullWidthMessageChat friendId={chosenFriend.id} />
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  };
+
   return (
     <React.Fragment>
       <Header />
-      {isMobile ? mobileView() : "NOT MOBILE"}
+      {isMobile ? <MobileView /> : <FullScreenView />}
     </React.Fragment>
   );
 };
