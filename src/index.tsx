@@ -6,12 +6,17 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogInPage from "./pages/logInPage";
 import HomePage from "./pages/homePage";
+import MobileMessageChat from "./pages/mobileMessageChat";
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/login" element={<LogInPage />} />
       <Route path="/" element={<HomePage />} />
+      <Route
+        path="/friend/:friendId/:firstName/:lastName"
+        element={<MobileMessageChat />}
+      />
       <Route
         path="*"
         element={

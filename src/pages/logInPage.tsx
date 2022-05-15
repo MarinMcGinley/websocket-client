@@ -47,12 +47,12 @@ const LogInPage = () => {
       });
   };
 
-  const displayedErrorMessage =
+  const DisplayedErrorMessage = () =>
     errorMessage != null ? (
       <p className="error-message">{errorMessage}</p>
     ) : null;
 
-  const loader = loading ? <div className="loader"></div> : null;
+  const Loader = () => (loading ? <div className="loader"></div> : null);
 
   return (
     <React.Fragment>
@@ -83,8 +83,8 @@ const LogInPage = () => {
             value="sign in"
             onClick={handleSubmit}
           />
-          {displayedErrorMessage}
-          {loader}
+          <DisplayedErrorMessage />
+          <Loader />
         </form>
       </div>
     </React.Fragment>

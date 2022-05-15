@@ -1,0 +1,21 @@
+$blabla-ocean-blue: #48a9a6;
+$blabla-blue: #4281a4;
+$blabla-baige: #e4dfda;
+$blabla-tan: #d4b483;
+$blabla-rassberry: #c1666b;
+
+.mobile-friend-header-container {
+  height: 4rem;
+  margin: 0;
+  padding: 0 0 0 0.5rem;
+  border-bottom: 1px solid #f3f3f3;
+  display: flex;
+
+  .arrow-back-button {
+    border: none;
+    background-color: #fff;
+    margin: 0 1rem 0 0;
+    font-size: 1.2rem;
+    color: $blabla-rassberry;
+  }
+}
