@@ -69,6 +69,7 @@ const Register = (props: RegisterProps) => {
         setErrorMessage(error.message);
       });
   };
+
   const DisplayedErrorMessage = () =>
     errorMessage != null ? (
       <p className="error-message">{errorMessage}</p>
@@ -77,7 +78,30 @@ const Register = (props: RegisterProps) => {
   const Loader = () => (loading ? <div className="loader"></div> : null);
 
   const validation = (): string => {
-    if (firstPassword !== secondPassword) return "Passwords must match";
+    console.log("firstName: " + firstName);
+    console.log(firstName.match(/[a-z,A-Z]{1,50}/g));
+    if (firstName.match(/[a-z,A-Z]{1,50}/g) === null)
+      return "first name cannot be empty";
+    if (lastName.match(/[a-z,A-Z]{1,50}/g) === null)
+      return "last name cannot be empty";
+    if (email.match(/[a-z,A-Z,0-9]*@[a-z,A-Z,0-9]*.[a-z, -]{2,34}/g) === null)
+      return "Email must be on the form 'example@email.com'";
+    if (firstPassword !== secondPassword) return "passwords must match";
+    console.log(
+      firstPassword.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,18}$/g
+      )
+    );
+    if (
+      firstPassword.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,18}$/g
+      ) === null
+    ) {
+      return "password must be at least 8 characters and at most 20, containing one lowercase letter, one uppercase letter, one number and one special character";
+    }
+    //https://javascript.info/regexp-lookahead-lookbehind
+    // MarraPjalla4$
+
     return;
   };
 
