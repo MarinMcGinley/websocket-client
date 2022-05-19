@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -192,7 +192,7 @@ const RegisterPage = () => {
 
   return (
     <React.Fragment>
-      <Header />
+      <Header loggedIn={false} />
       {successfulRegister ? (
         <RedirectToSignIn />
       ) : (

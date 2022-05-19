@@ -83,7 +83,7 @@ const LogInPage = () => {
 
   return (
     <React.Fragment>
-      <Header />
+      <Header loggedIn={false} />
       <div className="login-container">
         <form className="login-form">
           <label className="labels">

@@ -189,7 +189,7 @@ const HomePage = () => {
 
   return (
     <React.Fragment>
-      <Header />
+      <Header loggedIn={true} />
       {isMobile ? <MobileView /> : <FullScreenView />}
     </React.Fragment>
   );
