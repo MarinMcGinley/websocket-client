@@ -33,7 +33,7 @@ const LogInPage = () => {
 
   const validation = (): string => {
     if (email.match(/[a-z,A-Z,0-9]*@[a-z,A-Z,0-9]*.[a-z, -]{2,34}/g) === null) {
-      return "Email must be on the form 'example@email.com'";
+      return "email must be on the form 'example@email.com'";
     }
     if (
       password.match(

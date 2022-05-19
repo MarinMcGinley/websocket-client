@@ -58,13 +58,11 @@ const Register = (props: RegisterProps) => {
         email: email,
         password: firstPassword,
       })
-      .then((result: AxiosResponse) => {
+      .then(() => {
         setLoading(false);
         props.handleSuccessfulRegistration(true);
       })
       .catch((error: AxiosError) => {
-        console.log(error);
-        console.log(error.message);
         setLoading(false);
         setErrorMessage(error.message);
       });
@@ -85,7 +83,7 @@ const Register = (props: RegisterProps) => {
     if (lastName.match(/[a-z,A-Z]{1,50}/g) === null)
       return "last name cannot be empty";
     if (email.match(/[a-z,A-Z,0-9]*@[a-z,A-Z,0-9]*.[a-z, -]{2,34}/g) === null)
-      return "Email must be on the form 'example@email.com'";
+      return "email must be on the form 'example@email.com'";
     if (firstPassword !== secondPassword) return "passwords must match";
     console.log(
       firstPassword.match(
@@ -99,8 +97,6 @@ const Register = (props: RegisterProps) => {
     ) {
       return "password must be at least 8 characters and at most 20, containing one lowercase letter, one uppercase letter, one number and one special character";
     }
-    //https://javascript.info/regexp-lookahead-lookbehind
-    // MarraPjalla4$
 
     return;
   };
