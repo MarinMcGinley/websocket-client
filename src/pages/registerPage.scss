@@ -1,12 +1,16 @@
 $blabla-color: #48a9a6;
 
-.login-container {
-  margin-top: 10rem;
+.register-container {
+  margin-top: 6rem;
   font-family: "Montserrat", "sans-serif";
   font-weight: 600;
 
-  .login-form {
-    max-width: 250px;
+  @media (min-width: 700px) {
+    margin-top: 10rem;
+  }
+
+  .register-form {
+    max-width: 300px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -27,7 +31,7 @@ $blabla-color: #48a9a6;
         margin-bottom: 0.3rem;
       }
 
-      .login-input {
+      .register-input {
         margin: 0 0 1rem 0;
         border: 1.5px solid $blabla-color;
         padding: 0 0.3rem;
@@ -43,7 +47,7 @@ $blabla-color: #48a9a6;
       }
     }
 
-    .login-button {
+    .register-button {
       font-family: "Montserrat", "sans-serif";
       font-weight: 600;
       color: $blabla-color;
@@ -60,6 +64,12 @@ $blabla-color: #48a9a6;
         color: #fff;
         background-color: $blabla-color;
         border-color: #fff;
+      }
+
+      &:disabled {
+        color: $blabla-color;
+        background-color: #fff;
+        border-color: $blabla-color;
       }
     }
 
@@ -87,6 +97,10 @@ $blabla-color: #48a9a6;
       100% {
         transform: rotate(360deg);
       }
+    }
+
+    .center-text {
+      text-align: center;
     }
   }
 }

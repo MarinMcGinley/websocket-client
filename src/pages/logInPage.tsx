@@ -3,7 +3,7 @@ import "./logInPage.scss";
 import Header from "../components/header";
 import { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const axios = require("axios").default;
 
@@ -17,6 +17,12 @@ const LogInPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem("authToken")) {
+      navigate("/");
+    }
+  });
+
   const handleEmailChange = (event: any) => {
     setEmail(event.target.value);
   };
@@ -25,11 +31,32 @@ const LogInPage = () => {
     setPassword(event.target.value);
   };
 
+  const validation = (): string => {
+    if (email.match(/[a-z,A-Z,0-9]*@[a-z,A-Z,0-9]*.[a-z, -]{2,34}/g) === null) {
+      return "Email must be on the form 'example@email.com'";
+    }
+    if (
+      password.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,18}$/g
+      ) === null
+    ) {
+      return "password must be at least 8 characters and at most 20, containing one lowercase letter, one uppercase letter, one number and one special character";
+    }
+    return;
+  };
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log("handleSubmit");
+
     setErrorMessage("");
     setLoading(true);
+    const validationMessage = validation();
+
+    if (validationMessage) {
+      setErrorMessage(validationMessage);
+      setLoading(false);
+      return;
+    }
     axios
       .post(`${serverUrl}/api/authentication/signin`, {
         email: email,

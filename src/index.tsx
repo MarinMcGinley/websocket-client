@@ -1,18 +1,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogInPage from "./pages/logInPage";
 import HomePage from "./pages/homePage";
 import MobileMessageChat from "./pages/mobileMessageChat";
+import RegisterPage from "./pages/registerPage";
+import "./index.css";
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/login" element={<LogInPage />} />
       <Route path="/" element={<HomePage />} />
+      <Route path="/register" element={<RegisterPage />} />
       <Route
         path="/friend/:friendId/:firstName/:lastName"
         element={<MobileMessageChat />}
