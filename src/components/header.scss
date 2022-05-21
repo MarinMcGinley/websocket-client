@@ -1,14 +1,29 @@
+$blabla-ocean-blue: #48a9a6;
+
 .header-container {
-  background-color: #48a9a6;
+  background-color: $blabla-ocean-blue;
   min-height: 5rem;
-  display: flex;
-  justify-content: center;
-  padding-top: 1rem;
   font-family: "Montserrat", "sans-serif";
   font-size: 2rem;
   color: #fff;
-}
 
-.title {
-  margin-bottom: 1rem;
+  .log-out-button {
+    background-color: $blabla-ocean-blue;
+    border: none;
+    color: #fff;
+    position: absolute;
+    top: 2px;
+    right: 0;
+
+    @media (min-width: 700px) {
+      right: 8px;
+      top: 8px;
+    }
+  }
+
+  .title {
+    text-align: center;
+    margin: 0;
+    padding: 2rem 0 0 0;
+  }
 }
