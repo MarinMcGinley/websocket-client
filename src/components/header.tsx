@@ -7,13 +7,13 @@ type MyProps = {
 };
 
 const Header = (props: MyProps) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLoggingOut = () => {
     console.log("logging out");
 
     localStorage.removeItem("authToken");
-    // navigate("/login");
+    navigate("/login");
   };
 
   const LogOutButton = () => {

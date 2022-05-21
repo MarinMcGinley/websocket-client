@@ -1,3 +1,5 @@
+$blabla-ocean-blue: #48a9a6;
+
 .mobile-friends-container {
   margin: 0;
   padding: 0;
@@ -17,8 +19,10 @@
 
 .full-screen-container {
   display: flex;
+  height: 100vh;
   .friends-container {
     min-width: 300px;
+    border-right: 2px solid $blabla-ocean-blue;
 
     .friend-button {
       padding: 1rem 0 2rem 1rem;

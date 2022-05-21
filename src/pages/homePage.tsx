@@ -21,87 +21,11 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
-  const [friends, setFriends] = useState([
-    {
-      id: 1,
-      email: "annagyda@gmail.com",
-      firstName: "Anna Gyða",
-      lastName: "Gunnlaugsdóttir",
-    },
-    {
-      id: 2,
-      email: "annagyda@gmail.com",
-      firstName: "Marín Ingibjörg",
-      lastName: "McGinley",
-    },
-    {
-      id: 3,
-      email: "annagyda@gmail.com",
-      firstName: "Jóhanna",
-      lastName: "Gunnlaugsdóttir",
-    },
-    {
-      id: 4,
-      email: "annagyda@gmail.com",
-      firstName: "Páll",
-      lastName: "Gunnlaugsson",
-    },
-    {
-      id: 5,
-      email: "annagyda@gmail.com",
-      firstName: "Iðunn",
-      lastName: "Pálsdóttir",
-    },
-    {
-      id: 6,
-      email: "annagyda@gmail.com",
-      firstName: "Edda",
-      lastName: "Pálsdóttir",
-    },
-    {
-      id: 7,
-      email: "annagyda@gmail.com",
-      firstName: "Logi",
-      lastName: "Pálsson",
-    },
-    {
-      id: 8,
-      email: "annagyda@gmail.com",
-      firstName: "Inga Hlíf",
-      lastName: "Melvinsdóttir",
-    },
-    {
-      id: 9,
-      email: "annagyda@gmail.com",
-      firstName: "Eirik",
-      lastName: "Brandsas",
-    },
-    {
-      id: 10,
-      email: "annagyda@gmail.com",
-      firstName: "Pétur Sólmar",
-      lastName: "Guðjónsson",
-    },
-    {
-      id: 11,
-      email: "annagyda@gmail.com",
-      firstName: "Erna Þórey",
-      lastName: "Jónasdóttir",
-    },
-    {
-      id: 12,
-      email: "annagyda@gmail.com",
-      firstName: "Jóhanna Margrét",
-      lastName: "Logadóttir",
-    },
-    {
-      id: 13,
-      email: "annagyda@gmail.com",
-      firstName: "Edda Katrín",
-      lastName: "Logadóttir",
-    },
-  ]);
-  const [chosenFriend, setChosenFriend] = useState(friends[0]);
+  const [friends, setFriends] = useState([]);
+
+  const [chosenFriend, setChosenFriend] = useState(
+    friends.length != 0 ? friends[0] : {}
+  );
 
   useEffect(() => {
     window.addEventListener("resize", () =>
@@ -112,21 +36,24 @@ const HomePage = () => {
         setIsMobile(window.innerWidth < 800)
       );
     };
-    // axios
-    //   .get(`${serverUrl}/api/friends`, {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    //     },
-    //   })
-    //   .then((result: AxiosResponse) => {
-    //     setFriends(result.data);
-    //   })
-    //   .catch((error: AxiosError) => {
-    //     console.log("error receiving friends");
-    //     console.log(error);
-    //     navigate("login");
-    //   });
-  });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${serverUrl}/api/friends`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      .then((result: AxiosResponse) => {
+        setFriends(result.data);
+      })
+      .catch((error: AxiosError) => {
+        console.log("error receiving friends");
+        console.log(error);
+        navigate("login");
+      });
+  }, []);
 
   const MobileView = () => {
     return (
@@ -177,8 +104,12 @@ const HomePage = () => {
           <FullScreenFriendList />
           <div className="full-screen-message-container">
             <FullWidthFriendHeader
-              firstName={chosenFriend.firstName}
-              lastName={chosenFriend.lastName}
+              firstName={
+                chosenFriend.firstName !== null ? chosenFriend.firstName : ""
+              }
+              lastName={
+                chosenFriend.lastName !== null ? chosenFriend.lastName : ""
+              }
             />
             <FullWidthMessageChat friendId={chosenFriend.id} />
           </div>
