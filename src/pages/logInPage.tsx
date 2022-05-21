@@ -3,7 +3,7 @@ import "./logInPage.scss";
 import Header from "../components/header";
 import { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const axios = require("axios").default;
 
@@ -16,12 +16,6 @@ const LogInPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("authToken")) {
-      navigate("/");
-    }
-  });
 
   const handleEmailChange = (event: any) => {
     setEmail(event.target.value);
