@@ -4,7 +4,7 @@ $blabla-ocean-blue: #48a9a6;
   margin: 0;
   padding: 0;
   min-height: 100%;
-  font-family: "Montserrat", "sans-serif";
+  // font-family: "Montserrat";
   color: #2b2b2b;
 
   .friend-button {
@@ -14,6 +14,7 @@ $blabla-ocean-blue: #48a9a6;
     min-width: 100%;
     background-color: #fff;
     text-align: left;
+    font-family: "Montserrat";
   }
 }
 
@@ -31,6 +32,7 @@ $blabla-ocean-blue: #48a9a6;
       min-width: 100%;
       background-color: #fff;
       text-align: left;
+      font-family: "Montserrat";
     }
   }
 

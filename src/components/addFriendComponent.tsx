@@ -14,7 +14,7 @@ type User = {
   lastName: string;
 };
 
-const SearchBar = (props: { handleFoundUsers: Function }) => {
+const SearchBar = (props: { handleFoundUsers: Function; goBack: Function }) => {
   const [searchString, setSearchString] = useState("");
 
   const handleSearchStringChange = (event: any) => {
@@ -40,7 +40,15 @@ const SearchBar = (props: { handleFoundUsers: Function }) => {
   };
 
   return (
-    <div className="">
+    <div className="search-bar-container">
+      <button
+        className="arrow-back-button"
+        onClick={() => {
+          props.goBack();
+        }}
+      >
+        <i className="fa-solid fa-arrow-left"></i>
+      </button>
       <input
         className="search-bar"
         type="text"
@@ -50,7 +58,11 @@ const SearchBar = (props: { handleFoundUsers: Function }) => {
   );
 };
 
-const AddFriendComponent = () => {
+type MyProps = {
+  friendAdded: Function;
+};
+
+const AddFriendComponent = (props: MyProps) => {
   const [foundUsers, setFoundUsers] = useState([]);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
@@ -58,33 +70,74 @@ const AddFriendComponent = () => {
     setFoundUsers(users);
   };
 
+  const stopSearching = () => {
+    setShowSearchBar(false);
+  };
+
+  const addFriend = (user: User) => {
+    console.log(user);
+    axios
+      .post(
+        `${serverUrl}/api/friends/${user.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      )
+      .then((response: AxiosResponse) => {
+        console.log("success");
+        console.log(response);
+        props.friendAdded();
+      })
+      .catch((error: AxiosError) => {
+        console.log("error");
+        console.log(error);
+        setShowSearchBar(false);
+      });
+  };
+
   return (
     <div className="add-friend-container">
       {showSearchBar ? (
-        <React.Fragment>
-          <SearchBar handleFoundUsers={handleFoundUsers} />
-
-          {foundUsers.map((user: User) => {
-            return (
-              <button
-                key={user.id}
-                className="friend-button"
-                onClick={(e: any) => {
-                  console.log(user);
-                }}
-              >
-                {user.firstName} {user.lastName}
-              </button>
-            );
-          })}
-        </React.Fragment>
+        <div className="search-with-users-container">
+          <SearchBar
+            handleFoundUsers={handleFoundUsers}
+            goBack={stopSearching}
+          />
+          <div className="found-users-container">
+            {foundUsers.map((user: User) => {
+              return (
+                <div key={user.id} className="user-container">
+                  <div className="user-info">
+                    <div className="user-name">
+                      {user.firstName} {user.lastName}
+                    </div>
+                    <div className="user-email">{user.email}</div>
+                  </div>
+                  <button
+                    className="button-container"
+                    onClick={() => {
+                      addFriend(user);
+                    }}
+                  >
+                    <i className="fa-solid fa-plus middle"></i>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       ) : (
-        <i
-          className="fa-solid fa-user-plus"
-          onClick={() => {
-            setShowSearchBar(true);
-          }}
-        />
+        <div className="add-friend-icon-container">
+          <i
+            className="fa-solid fa-user-plus"
+            onClick={() => {
+              setShowSearchBar(true);
+            }}
+          />
+        </div>
       )}
     </div>
   );

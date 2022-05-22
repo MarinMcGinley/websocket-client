@@ -38,7 +38,7 @@ const HomePage = () => {
     };
   }, []);
 
-  useEffect(() => {
+  const getFriends = () => {
     axios
       .get(`${serverUrl}/api/friends`, {
         headers: {
@@ -52,11 +52,16 @@ const HomePage = () => {
         console.log(error);
         navigate("/login");
       });
+  };
+
+  useEffect(() => {
+    getFriends();
   }, []);
 
   const MobileView = () => {
     return (
       <div className="mobile-friends-container">
+        <AddFriendComponent friendAdded={getFriends} />
         {friends.map((friend: Friend) => {
           return (
             <button
@@ -79,7 +84,7 @@ const HomePage = () => {
   const FullScreenFriendList = () => {
     return (
       <div className="friends-container">
-        <AddFriendComponent />
+        <AddFriendComponent friendAdded={getFriends} />
         {friends.map((friend: Friend) => {
           return (
             <button

@@ -1,5 +1,60 @@
+$blabla-color: #48a9a6;
+
 .add-friend-container {
   display: flex;
-  justify-content: center;
   padding: 1rem;
+
+  .search-with-users-container {
+    width: 100%;
+    .search-bar-container {
+      .arrow-back-button {
+        background-color: #fff;
+        border: none;
+        margin: 0 0 0.5rem 0;
+      }
+      .search-bar {
+        width: 100%;
+        margin: 0 0 1rem 0;
+        border: 1.5px solid $blabla-color;
+        padding: 0 0.3rem;
+        border-radius: 7px;
+        width: calc(100% - 3px - 4.8 * 2px);
+        min-height: 2rem;
+        color: $blabla-color;
+      }
+    }
+
+    .found-users-container {
+      .user-container {
+        max-width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        list-style-type: none;
+        border-radius: 7px;
+        background-color: $blabla-color;
+        color: #fff;
+        text-align: left;
+        font-size: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+
+        .user-name {
+          font-weight: 600;
+        }
+
+        .button-container {
+          min-height: 100%;
+          margin-top: auto;
+          margin-bottom: auto;
+          border: none;
+          color: #fff;
+          background-color: $blabla-color;
+        }
+      }
+    }
+  }
+
+  .add-friend-icon-container {
+    margin: auto;
+  }
 }
