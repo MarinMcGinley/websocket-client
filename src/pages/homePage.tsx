@@ -1,12 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import * as React from "react";
-import { MouseEventHandler, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
-import MobileMessageChat from "./mobileMessageChat";
 import "./homePage.scss";
 import FullWidthMessageChat from "../components/fullWidthMessageChat";
 import FullWidthFriendHeader from "../components/fullWidthFriendHeader";
+import AddFriendComponent from "../components/addFriendComponent";
 
 const serverUrl = process.env.REACT_APP_WEBSOCKET_URL;
 
@@ -24,7 +24,7 @@ const HomePage = () => {
   const [friends, setFriends] = useState([]);
 
   const [chosenFriend, setChosenFriend] = useState(
-    friends.length != 0 ? friends[0] : {}
+    friends.length !== 0 ? friends[0] : {}
   );
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const HomePage = () => {
     };
   }, []);
 
-  useEffect(() => {
+  const getFriends = () => {
     axios
       .get(`${serverUrl}/api/friends`, {
         headers: {
@@ -49,15 +49,19 @@ const HomePage = () => {
         setFriends(result.data);
       })
       .catch((error: AxiosError) => {
-        console.log("error receiving friends");
         console.log(error);
-        navigate("login");
+        navigate("/login");
       });
+  };
+
+  useEffect(() => {
+    getFriends();
   }, []);
 
   const MobileView = () => {
     return (
       <div className="mobile-friends-container">
+        <AddFriendComponent friendAdded={getFriends} />
         {friends.map((friend: Friend) => {
           return (
             <button
@@ -80,6 +84,7 @@ const HomePage = () => {
   const FullScreenFriendList = () => {
     return (
       <div className="friends-container">
+        <AddFriendComponent friendAdded={getFriends} />
         {friends.map((friend: Friend) => {
           return (
             <button
@@ -103,15 +108,15 @@ const HomePage = () => {
         <div className="full-screen-container">
           <FullScreenFriendList />
           <div className="full-screen-message-container">
-            <FullWidthFriendHeader
-              firstName={
-                chosenFriend.firstName !== null ? chosenFriend.firstName : ""
-              }
-              lastName={
-                chosenFriend.lastName !== null ? chosenFriend.lastName : ""
-              }
-            />
-            <FullWidthMessageChat friendId={chosenFriend.id} />
+            {Object.keys(chosenFriend).length !== 0 ? (
+              <React.Fragment>
+                <FullWidthFriendHeader
+                  firstName={chosenFriend.firstName}
+                  lastName={chosenFriend.lastName}
+                />
+                <FullWidthMessageChat friendId={chosenFriend.id} />
+              </React.Fragment>
+            ) : null}
           </div>
         </div>
       </React.Fragment>
